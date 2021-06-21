@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+PROMPT_EOL_MARK=''
+string='
+
+
+
+
+
+          ooooooooooooo
+          8    888    8
+               888       .ooooo.  oooo  8b ooo. .oo.  .oo.    .oooo.         
+               888      d88   88b  888888P  888PPY88bPPY88b   P  )88b        
+               888      888ooo888  888   8  888   888   888   .oPI888        
+               888      888    .o  888      888   888   888  d8(  888        
+              o888o      Y8bod8P  d888b    o888o o888o o888o  Y888888o
+
+
+
+
+
+'
+
+tput setaf 2
+for ((i = 0; i <= ${#string}; i++)); do
+    printf '%s' "${string:$i:1}"
+    sleep 0.0$(((RANDOM % 5) + 1))
+done
+tput sgr0 2
