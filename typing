@@ -5,25 +5,36 @@ string='
 
 
 
+          
+          ooooooooooooo                                       o8o                        oooo
+          8    888     8                                       o                          888
+               888       .ooooo.  oooo d8b ooo. .oo.  .oo.   oooo  ooo. .oo.    .oooo.    888
+               888      d88   88b  888""8P  888P"Y88bP"Y88b   888   888P"Y88b   P  )88b   888
+               888      888ooo888  888      888   888   888   888   888   888   .oP"888   888
+               888      888    .o  888      888   888   888   888   888   888  d8(  888   888
+              o888o      Y8bod8P  d888b    o888o o888o o888o o888o o888o o888o  Y888""8o o888o  
 
+                     ooo        ooooo           oooo                                        
+                      88.       .888             888                                        
+                      888b     d 888   .oooo.    888  oooo   .ooooo.   .ooooo.  oooo    ooo  .ooooo.  oooo d8b 
+                      8 Y88. .P  888   P  )88b   888 .8P    d88   88b d88   88b   88.  .8   d88   88b  888""8P
+                      8   888    888   .oP"888   888888.    888ooo888 888   888    88..8    888ooo888  888 
+                      8    Y     888  d8(  888   888  88b.  888    .o 888   888     888     888    .o  888
+                     o8o        o888o  Y888""8o o888o o888o  Y8bod8P   Y8bod8P       8       Y8bod8P  d888b
 
-          ooooooooooooo
-          8    888    8
-               888       .ooooo.  oooo  8b ooo. .oo.  .oo.    .oooo.         
-               888      d88   88b  888888P  888PPY88bPPY88b   P  )88b        
-               888      888ooo888  888   8  888   888   888   .oPI888        
-               888      888    .o  888      888   888   888  d8(  888        
-              o888o      Y8bod8P  d888b    o888o o888o o888o  Y888888o
-
-
-
-
-
+                                          .o.                       .                                             .                   .o8
+                                         .888.                    .o8                                           .o8                  "888 
+                                        .8"888.     oooo  oooo  .o888oo  .ooooo.  ooo. .oo.  .oo.    .oooo.   .o888oo  .ooooo.   .oooo888   
+                                       .8   888.     888   888    888   d88   88b  888P"Y88bP"Y88b   P  )88b    888   d88   88b d88   888 
+                                      .88ooo8888.    888   888    888   888   888  888   888   888   .oP"888    888   888ooo888 888   888 
+                                     .8       888.   888   888    888 . 888   888  888   888   888  d8(  888    888 . 888    .o 888   888  
+                                    o88o     o8888o   V88V"V8P    "888"  Y8bod8P  o888o o888o o888o  Y888""8o   "888"  Y8bod8P   Y8bod88P"  
 '
 
-tput setaf 2
+tput setaf 7
 for ((i = 0; i <= ${#string}; i++)); do
     printf '%s' "${string:$i:1}"
-    sleep 0.0$(((RANDOM % 5) + 1))
+    sleep 0.00$(((RANDOM % 5) + 1))
 done
-tput sgr0 2
+sleep 3
+tput sgr0
