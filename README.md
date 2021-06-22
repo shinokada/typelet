@@ -8,7 +8,7 @@ Create a file or add a line to file and print it like a typewriter.
 
 ## Usage
 
-Colors: Use `--color` option.
+Colors: Use following number with the `--color` option.
 
 | Number | Color           |
 | ------ | --------------- |
@@ -21,6 +21,13 @@ Colors: Use `--color` option.
 | 6      | cyan            |
 | 7      | white           |
 
+Interval: determines the interval time.
+
+| Number | time              | Speed        |
+| ------ | ----------------- | ------------ |
+| 1      | 0.01-0.09 sec     | Slowest      |
+| 2      | 0.001-0.009 sec   | Midium speed |
+| 3      | 0.0001-0.0009 sec | Fastest      |
 
 ```sh
 # create a file. The default font is roman, adding 10 spaces in front of all lines
