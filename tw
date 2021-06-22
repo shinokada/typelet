@@ -110,15 +110,15 @@ while (($# > 0)); do
         colorop=$2
         shift 2
         ;;
-    -c | create)
+    -c | --create)
         createop="true"
         shift
         ;;
-    -a | add)
+    -a | --add)
         addop="true"
         shift
         ;;
-    -p | print)
+    -p | --print)
         printop="true"
         shift
         ;;
@@ -126,17 +126,23 @@ while (($# > 0)); do
         fn_read
         exit
         ;;
-    -h | help)
+    -h | --help)
         usage
         exit
         ;;
-    -v | version)
+    -v | --version)
         echo "${version}"
         exit
         ;;
         # *) usage ;;
     esac
 done
+
+fn_replace() {
+    # adding spaces in front of all lines
+    space_num=$(repeat "$spaceop" " ")
+    sed -i -e "s/^/$space_num/" $tmp_file
+}
 
 create() {
     if [[ -z $word ]]; then
@@ -147,10 +153,7 @@ create() {
     touch $tmp_file
     figlet -f "$font" "$word" >$tmp_file
     cat $tmp_file
-    # adding spaces in front of all lines
-    space_num=$(repeat $spaceop " ")
-    echo "${space}: ${spaceop}${space_num}a"
-    sed -i -e "s/^/$space_num/" $tmp_file
+    fn_replace
 }
 
 add() {
@@ -161,10 +164,7 @@ add() {
     echo "Adding $word with $font font."
     figlet -f "$font" "$word" >>$tmp_file
     cat $tmp_file
-    # adding spaces in front of all lines
-    space_num=$(repeat $spaceop " ")
-    echo "${spaceop}${space_num}a"
-    sed -i -e "s/^/$space_num/" $tmp_file
+    fn_replace
 }
 
 print() {
