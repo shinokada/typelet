@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+version="0.0.1"
+font="roman"
+colorop=2
+speed="0.0"
+word=""
+createop=""
+addop=""
+printop=""
+tmp_file="/tmp/tp-file"
+spaceop=0
+interval=2
+
+usage() {
+    cat <<EOF
+# create a file
+tp create Awesome -f roman
+
+# add a line
+tp add Package -f roman
+tp add Manager -f roman
+
+# print it
+tp print --color 2 --speed 10 
+
+# print version
+tp -v
+
+# print help
+tp -h
+EOF
+}
+
+check_cmd() {
+    if [[ ! $(command -v "$1") ]]; then
+        echo "It seems like you don't have $1."
+        echo "Please install $1 "
+        exit 1
+    fi
+}
+
+check_cmd figlet
+
+# Repeat given char N times using shell function
+repeat() {
+    local start end str range
+    start=1
+    end=${1:-80}
+    str="${2:-=}"
+    range=$(seq $start "$end")
+    for i in $range; do echo -n "${str}"; done
+}
+
+find_inteval() {
+    case $1 in
+    1) speed=0.0$(((RANDOM % 9) + 1)) ;;
+    2) speed=0.00$(((RANDOM % 9) + 1)) ;;
+    3) speed=0.000$(((RANDOM % 9) + 1)) ;;
+    *)
+        usage
+        exit
+        ;;
+    esac
+}
+
+read() {
+    cat "$tmp_file"
+}
+
+while (($# > 0)); do
+    case $1 in
+    -f | --font)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the font name."
+            exit
+        fi
+        font="${2}"
+        shift 2
+        ;;
+    -w | --word)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the word."
+            exit
+        fi
+        word="${2}"
+        shift 2
+        ;;
+    -s | --space)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the numbers of spaces."
+            exit
+        fi
+        spaceop="${2}"
+        shift 2
+        ;;
+    -i | --interval)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the interval, 1 for 0.01 sec, 2 for 0.001 (default) sec and 3 for 0.0001 sec (fastest)."
+            exit
+        fi
+        interval=$2
+        shift 2
+        ;;
+    --color)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the color. 0: black, 1: red, 2: green (default), 3: yellow, 4: blud, 5: magenta, 6: cyan, 7: white."
+            exit
+        fi
+        colorop=$2
+        shift 2
+        ;;
+    -c | create)
+        createop="true"
+        shift
+        ;;
+    -a | add)
+        addop="true"
+        shift
+        ;;
+    -p | print)
+        printop="true"
+        shift
+        ;;
+    -r | --read)
+        read
+        exit
+        ;;
+    -h | help)
+        usage
+        exit
+        ;;
+    -v | version)
+        echo "${version}"
+        exit
+        ;;
+        # *) usage ;;
+    esac
+done
+
+create() {
+    if [[ -z $word ]]; then
+        echo "Please specify a word using -w."
+        exit
+    fi
+    echo "Creating $word with $font font."
+    touch $tmp_file
+    figlet -f "$font" "$word" >$tmp_file
+    cat $tmp_file
+    # adding spaces in front of all lines
+    space_num=$(repeat $spaceop " ")
+    echo "${space}: ${spaceop}${space_num}a"
+    sed -i -e "s/^/$space_num/" $tmp_file
+}
+
+add() {
+    if [[ -z $word ]]; then
+        echo "Please specify a word using -w."
+        exit
+    fi
+    echo "Adding $word with $font font."
+    figlet -f "$font" "$word" >>$tmp_file
+    cat $tmp_file
+    # adding spaces in front of all lines
+    space_num=$(repeat $spaceop " ")
+    echo "${spaceop}${space_num}a"
+    sed -i -e "s/^/$space_num/" $tmp_file
+}
+
+print() {
+    echo
+    echo
+    find_inteval "$interval"
+    word=$(cat $tmp_file)
+    tput setaf "$colorop"
+    for ((i = 0; i <= ${#word}; i++)); do
+        printf '%s' "${word:$i:1}"
+        sleep "$speed"
+    done
+    echo
+    sleep 1
+    tput sgr0
+}
+
+if [[ -n $createop ]]; then
+    create
+    exit
+fi
+
+if [[ -n $addop ]]; then
+    add
+    exit
+fi
+
+if [[ -n $printop ]]; then
+    print
+    exit
+fi
+
+if [[ -n $createop ]]; then
+    create
+    exit
+fi
