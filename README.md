@@ -4,6 +4,8 @@
 
 Create a file or add a line to file and print it like a typewriter.
 
+![image](https://raw.githubusercontent.com/shinokada/tw/main/images/400-tw.gif)
+
 ## Requirement
 
 ## Usage
