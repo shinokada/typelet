@@ -1,12 +1,14 @@
-# Typewriter Print
+# Typewriter Figlet (Tylet)
 
 ## Overview
 
-Create a file or add a line to file and print it like a typewriter.
+Create a figlet word or add words to file and print it like a typewriter.
 
 ![image](https://raw.githubusercontent.com/shinokada/tw/main/images/400-tw.gif)
 
 ## Requirement
+
+- [Figlet](http://www.figlet.org/)
 
 ## Usage
 
