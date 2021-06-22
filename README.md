@@ -86,9 +86,7 @@ See [filet](http://www.figlet.org/examples.html), for font examples.
 
 Shinichi Okada
 
-## Licence
-
-## Licence
+## License
 
 MIT License
 
