@@ -50,30 +50,30 @@ Default: 0
 
 ```sh
 # create a file. The default font is roman, adding 10 spaces in front of all lines
-tw -c Typewriter -f banner -s 10
+tylet -c Typewriter -f banner -s 10
 # or
-tw --create Typewriter -f banner -s 10
+tylet --create Typewriter -f banner -s 10
 
 # add a line
-tw -a Print -f banner -s 10
+tylet -a Print -f banner -s 10
 # or
-tw --add Print -f banner -s 10
+tylet --add Print -f banner -s 10
 
 # read the file
-tw -r
+tylet -r
 # or
-tw --read
+tylet --read
 
 # print it with the fastest mode 3 and red color.
-tw -p --color 1 -i 3
+tylet -p --color 1 -i 3
 # or
-tw --print --color 1 -i 3
+tylet --print --color 1 -i 3
 
 # print version
-tw -v
+tylet -v
 
 # print help
-tw -h
+tylet -h
 ```
 
 See [filet](http://www.figlet.org/examples.html), for font examples.

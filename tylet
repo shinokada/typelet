@@ -8,27 +8,27 @@ word=""
 createop=""
 addop=""
 printop=""
-tmp_file="/tmp/tp-file"
+tmp_file="/tmp/tylet-file"
 spaceop=0
 interval=2
 
 usage() {
     cat <<EOF
 # create a file
-tp create Awesome -f roman
+tylet create Awesome -f roman
 
 # add a line
-tp add Package -f roman
-tp add Manager -f roman
+tylet add Package -f roman
+tylet add Manager -f roman
 
 # print it
-tp print --color 2 --speed 10 
+tylet print --color 2 --speed 10 
 
 # print version
-tp -v
+tylet -v
 
 # print help
-tp -h
+tylet -h
 EOF
 }
 
