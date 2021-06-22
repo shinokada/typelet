@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-version="0.1.0"
+version="0.2.0"
+script_name=$(basename "$0")
 font="roman"
 colorop=2
 speed="0.0"
@@ -41,6 +42,7 @@ check_cmd() {
 }
 
 check_cmd figlet
+check_cmd gh
 
 # Repeat given char N times using shell function
 repeat() {
@@ -66,6 +68,39 @@ find_inteval() {
 
 fn_read() {
     cat "$tmp_file"
+}
+
+save_to_gist() {
+    echo "Saving to gist ..."
+    gh gist create -w -p -f "my tylet" -d "Created by tylet." <$tmp_file || exit
+}
+
+create_raw() {
+    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    if [[ ${1} =~ $regex ]]; then
+        if [[ $(curl --silent --head --fail "${1}/raw") ]]; then
+            # echo "URL exists: ${1}/raw"
+            echo $(curl -L --silent "${1}/raw")
+        else
+            echo "URL does not exist: ${1}"
+        fi
+    else
+        echo "Link not valid."
+    fi
+}
+
+save_to_local() {
+    echo "Printing from gist ..."
+    if [ "$2" ]; then
+        url=$2
+        create_raw "$url" >$tmp_file
+        echo "Save to the local file."
+        echo "Now you can print it."
+        exit
+    else
+        echo "Please provide your list URL."
+        exit 1
+    fi
 }
 
 while (($# > 0)); do
@@ -109,6 +144,14 @@ while (($# > 0)); do
         fi
         colorop=$2
         shift 2
+        ;;
+    -g | --gist)
+        save_to_gist
+        exit
+        ;;
+    -u | --url)
+        save_to_local "$2"
+        exit
         ;;
     -c | --create)
         createop="true"

@@ -9,6 +9,7 @@ Create a figlet word or add words to file and print it like a typewriter.
 ## Requirement
 
 - [Figlet](http://www.figlet.org/)
+- [GitHub CLI gh](https://github.com/cli/cli#installation)
 
 ## Usage
 
@@ -37,7 +38,6 @@ Default: 2
 | 1      | 0.01-0.09 sec     | Slowest                |
 | 2      | 0.001-0.009 sec   | Midium speed (Default) |
 | 3      | 0.0001-0.0009 sec | Fastest                |
-
 
 ### Space
 
@@ -80,10 +80,34 @@ tylet -h
 
 See [filet](http://www.figlet.org/examples.html), for font examples.
 
-## Features
+### Save to Gist
+
+```sh
+tylet -g
+# or
+tylet --gist
+```
+
+### Save from Gist to local
+
+```sh
+tylet -u <gist-url>
+# or
+tylet --url <gist-url>
+# then print it
+tylet -p --color 1 -i 3
+```
+
+## Limitations
+
+Ceratin Figlet fonts may create multiple lines for a word.
+
+You can check it using `tylet read`.
 
 
 ## Reference
+
+- [Figlet font examples](http://www.figlet.org/examples.html)
 
 
 ## Author
