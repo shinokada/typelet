@@ -1,14 +1,5 @@
 # Typewriter Figlet (Tylet)
 
- _____     _      _
-|_   _|   | |    | |
-  | |_   _| | ___| |_
-  | | | | | |/ _ \ __|
-  | | |_| | |  __/ |_
-  \_/\__, |_|\___|\__|
-      __/ |
-     |___/
-
 ## Overview
 
 Create a figlet word or add words to file and print it like a typewriter.
