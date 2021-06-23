@@ -41,6 +41,11 @@ $script_name -a Print -f banner -s 10
 $script_name --add Print -f banner -s 10
 
 
+Add a empty line
+----------------
+$script_name -e
+
+
 Read a file
 -----------
 $script_name -r
@@ -149,6 +154,10 @@ save_to_local() {
     fi
 }
 
+fn_empty() {
+    echo >>$tmp_file
+}
+
 while (($# > 0)); do
     case $1 in
     -f | --font)
@@ -221,6 +230,10 @@ while (($# > 0)); do
         fn_read
         exit
         ;;
+    -e | --empty)
+        fn_empty
+        exit
+        ;;
     -h | --help)
         usage
         exit
@@ -235,8 +248,12 @@ done
 
 fn_replace() {
     # adding spaces in front of all lines
-    space_num=$(repeat "$spaceop" " ")
-    sed -i -e "s/^/$space_num/" $tmp_file
+    if ((spaceop > 0)); then
+        echo "adding spaces..."
+        space_num=$(repeat "$spaceop" " ")
+        echo "$space_num"
+        sed -i -e "s/^/$space_num/" $tmp_file
+    fi
 }
 
 create() {
@@ -258,6 +275,8 @@ add() {
     # fi
     echo "Adding $word with $font font."
     figlet -f "$font" "$word" >>$tmp_file
+    echo
+    echo
     cat $tmp_file
     fn_replace
 }

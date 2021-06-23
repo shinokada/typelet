@@ -1,4 +1,4 @@
-# Typewriter Figlet (Tylet)
+# Typewriter Figlet (typelet)
 
 ## Overview
 
@@ -44,9 +44,9 @@ Default: 2
 When you create or add a word, use `-s` to add spaces in front of lines.
 Default: 0
 
-### Word
+### Empty line
 
-`-w` or `--word` adds a word per line.
+You can add a empty line using the `-e` option.
 
 ## Examples
 
@@ -55,20 +55,25 @@ Default: 0
 Create a new file. The default font is roman, adding 10 spaces in front of all lines.
 
 ```sh
-tylet -c Typewriter -f banner -s 10
+typelet -c Typewriter -f banner -s 10
 # or
-tylet --create Typewriter -f banner -s 10
+typelet --create Typewriter -f banner -s 10
 ```
-
 
 ### Add a line
 
 After creating a new file, you can add a new line using the `-a` option.
 
 ```sh
-tylet -a Print -f banner -s 10
+typelet -a Print -f banner -s 10
 # or
-tylet --add Print -f banner -s 10
+typelet --add Print -f banner -s 10
+```
+
+### Add a empty line
+
+```sh
+typelet -e
 ```
 
 ### read the file
@@ -76,9 +81,9 @@ tylet --add Print -f banner -s 10
 The `-r` or `--read` option prints what's in the local file.
 
 ```sh
-tylet -r
+typelet -r
 # or
-tylet --read
+typelet --read
 ```
 
 ### Print
@@ -86,15 +91,15 @@ tylet --read
 Print using the default settings.
 
 ```sh
-tylet -p
+typelet -p
 ```
 
 Print it with the fastest mode 3 and red color.
 
 ```sh
-tylet -p --color 1 -i 3
+typelet -p --color 1 -i 3
 # or
-tylet --print --color 1 -i 3
+typelet --print --color 1 -i 3
 ```
 
 ### Save it to Gist
@@ -102,9 +107,9 @@ tylet --print --color 1 -i 3
 You can save what you created to a Gist using `-g` or `--gist`.
 
 ```sh
-tylet -g
+typelet -g
 # or
-tylet --gist
+typelet --gist
 ```
 
 ### Save to the local from a Gist
@@ -112,19 +117,19 @@ tylet --gist
 You can save a Gist to your local file using `-u` or `--url`.
 
 ```sh
-tylet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+typelet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
 # or
-tylet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+typelet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
 ```
 
 ### Other functions
 
 ```sh
 # print version
-tylet -v
+typelet -v
 
 # print help
-tylet -h
+typelet -h
 ```
 
 See [filet](http://www.figlet.org/examples.html), for font examples.
@@ -132,26 +137,26 @@ See [filet](http://www.figlet.org/examples.html), for font examples.
 ### Save to Gist
 
 ```sh
-tylet -g
+typelet -g
 # or
-tylet --gist
+typelet --gist
 ```
 
 ### Save from Gist to local
 
 ```sh
-tylet -u <gist-url>
+typelet -u <gist-url>
 # or
-tylet --url <gist-url>
+typelet --url <gist-url>
 # then print it
-tylet -p --color 1 -i 3
+typelet -p --color 1 -i 3
 ```
 
 ## Limitations
 
 Ceratin Figlet fonts may create multiple lines for a word.
 
-You can check it using `tylet read`.
+You can check it using `typelet read`.
 
 
 ## Reference
