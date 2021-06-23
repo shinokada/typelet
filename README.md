@@ -50,29 +50,76 @@ Default: 0
 
 ## Examples
 
+### Create a new
+
+Create a new file. The default font is roman, adding 10 spaces in front of all lines.
+
 ```sh
-# create a file. The default font is roman, adding 10 spaces in front of all lines
 tylet -c Typewriter -f banner -s 10
 # or
 tylet --create Typewriter -f banner -s 10
+```
 
-# add a line
+
+### Add a line
+
+After creating a new file, you can add a new line using the `-a` option.
+
+```sh
 tylet -a Print -f banner -s 10
 # or
 tylet --add Print -f banner -s 10
+```
 
-# read the file
+### read the file
+
+The `-r` or `--read` option prints what's in the local file.
+
+```sh
 tylet -r
 # or
 tylet --read
+```
 
-# print with default settings
+### Print
+
+Print using the default settings.
+
+```sh
 tylet -p
-# print it with the fastest mode 3 and red color.
+```
+
+Print it with the fastest mode 3 and red color.
+
+```sh
 tylet -p --color 1 -i 3
 # or
 tylet --print --color 1 -i 3
+```
 
+### Save it to Gist
+
+You can save what you created to a Gist using `-g` or `--gist`.
+
+```sh
+tylet -g
+# or
+tylet --gist
+```
+
+### Save to the local from a Gist
+
+You can save a Gist to your local file using `-u` or `--url`.
+
+```sh
+tylet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+# or
+tylet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+```
+
+### Other functions
+
+```sh
 # print version
 tylet -v
 

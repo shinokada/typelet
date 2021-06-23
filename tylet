@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version="0.3.0"
+version="0.3.1"
 script_name=$(basename "$0")
 font="roman"
 colorop=2
@@ -15,14 +15,41 @@ interval=2
 usage() {
     cat <<EOF
 # create a file
-tylet create Awesome -f roman
+tylet -c Typewriter -f banner -s 10
+# or
+tylet --create Typewriter -f banner -s 10
+
 
 # add a line
-tylet add Package -f roman
-tylet add Manager -f roman
+tylet -a Print -f banner -s 10
+# or
+tylet --add Print -f banner -s 10
+
+
+# read a file
+tylet -r
+# or
+tylet --read
+
 
 # print it
-tylet print --color 2 --speed 10 
+tylet -p
+# or
+tylet -p --color 1 -i 3
+# or
+tylet --print --color 1 -i 3
+
+# save it to a Gist
+tylet -g
+# or
+tylet --gist
+
+
+# save from a Gist
+tylet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+# or
+tylet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+
 
 # print version
 tylet -v
@@ -71,7 +98,7 @@ fn_read() {
 
 save_to_gist() {
     echo "Saving to gist ..."
-    gh gist create -w -p -f "my tylet" -d "Created by tylet." <$tmp_file || exit
+    gh gist create -w -p -f "my-tylet" -d "Created by tylet." <$tmp_file || exit
 }
 
 create_raw() {
