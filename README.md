@@ -66,6 +66,8 @@ tylet -r
 # or
 tylet --read
 
+# print with default settings
+tylet -p
 # print it with the fastest mode 3 and red color.
 tylet -p --color 1 -i 3
 # or

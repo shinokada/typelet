@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-version="0.2.0"
+version="0.3.0"
 script_name=$(basename "$0")
 font="roman"
 colorop=2
 speed="0.0"
-word=""
 createop=""
 addop=""
 printop=""
@@ -80,7 +79,7 @@ create_raw() {
     if [[ ${1} =~ $regex ]]; then
         if [[ $(curl --silent --head --fail "${1}/raw") ]]; then
             # echo "URL exists: ${1}/raw"
-            echo $(curl -L --silent "${1}/raw")
+            echo "$(curl -L --silent "${1}/raw")"
         else
             echo "URL does not exist: ${1}"
         fi
@@ -90,9 +89,10 @@ create_raw() {
 }
 
 save_to_local() {
-    echo "Printing from gist ..."
-    if [ "$2" ]; then
-        url=$2
+    echo "Saving from gist to a local."
+    echo "URL: $1"
+    if [ "$1" ]; then
+        url=$1
         create_raw "$url" >$tmp_file
         echo "Save to the local file."
         echo "Now you can print it."
@@ -111,14 +111,6 @@ while (($# > 0)); do
             exit
         fi
         font="${2}"
-        shift 2
-        ;;
-    -w | --word)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the word."
-            exit
-        fi
-        word="${2}"
         shift 2
         ;;
     -s | --space)
@@ -150,16 +142,30 @@ while (($# > 0)); do
         exit
         ;;
     -u | --url)
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the url."
+            exit
+        fi
         save_to_local "$2"
         exit
         ;;
     -c | --create)
         createop="true"
-        shift
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the word."
+            exit
+        fi
+        word="${2}"
+        shift 2
         ;;
     -a | --add)
         addop="true"
-        shift
+        if [[ -z "$2" ]]; then
+            echo "You need to specify the word."
+            exit
+        fi
+        word="${2}"
+        shift 2
         ;;
     -p | --print)
         printop="true"
@@ -188,10 +194,10 @@ fn_replace() {
 }
 
 create() {
-    if [[ -z $word ]]; then
-        echo "Please specify a word using -w."
-        exit
-    fi
+    # if [[ -z $word ]]; then
+    #     echo "Please specify a word using -w."
+    #     exit
+    # fi
     echo "Creating $word with $font font."
     touch $tmp_file
     figlet -f "$font" "$word" >$tmp_file
@@ -200,10 +206,10 @@ create() {
 }
 
 add() {
-    if [[ -z $word ]]; then
-        echo "Please specify a word using -w."
-        exit
-    fi
+    # if [[ -z $word ]]; then
+    #     echo "Please specify a word using -w."
+    #     exit
+    # fi
     echo "Adding $word with $font font."
     figlet -f "$font" "$word" >>$tmp_file
     cat $tmp_file
