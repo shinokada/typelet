@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version="0.3.2"
+version="0.3.3"
 script_name=$(basename "$0")
 font="roman"
 colorop=2
