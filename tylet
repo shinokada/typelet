@@ -14,48 +14,67 @@ interval=2
 
 usage() {
     cat <<EOF
-# create a file
-tylet -c Typewriter -f banner -s 10
-# or
-tylet --create Typewriter -f banner -s 10
+
+ _____     _      _
+|_   _|   | |    | |
+  | |_   _| | ___| |_
+  | | | | | |/ _ \ __|
+  | | |_| | |  __/ |_
+  \_/\__, |_|\___|\__|
+      __/ |
+     |___/
+
+Description:
+$script_name creates, adds, print a large words like a typewriter.
+$script_name can save to/from a Gist and print.
 
 
-# add a line
-tylet -a Print -f banner -s 10
-# or
-tylet --add Print -f banner -s 10
+Create a file
+-------------
+$script_name -c Typewriter -f banner -s 10
+$script_name --create Typewriter -f banner -s 10
 
 
-# read a file
-tylet -r
-# or
-tylet --read
+Add a line
+----------
+$script_name -a Print -f banner -s 10
+$script_name --add Print -f banner -s 10
 
 
-# print it
-tylet -p
-# or
-tylet -p --color 1 -i 3
-# or
-tylet --print --color 1 -i 3
-
-# save it to a Gist
-tylet -g
-# or
-tylet --gist
+Read a file
+-----------
+$script_name -r
+$script_name --read
 
 
-# save from a Gist
-tylet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
-# or
-tylet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+Print it
+--------
+$script_name -p
+$script_name -p --color 1 -i 3
+$script_name --print --color 1 -i 3
 
 
-# print version
-tylet -v
+Save it to a Gist
+-----------------
+$script_name -g
+$script_name --gist
 
-# print help
-tylet -h
+
+Save to local from a Gist
+-------------------------
+$script_name -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+$script_name -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+
+
+Print version
+-------------
+$script_name -v
+
+Print help
+------------
+$script_name -h
+
+
 EOF
 }
 
