@@ -23,7 +23,7 @@ When you print `-p`, use following number with the `--color` option.
 | 1      | red             |
 | 2      | green (default) |
 | 3      | yellow          |
-| 4      | blud            |
+| 4      | blue            |
 | 5      | magenta         |
 | 6      | cyan            |
 | 7      | white           |
