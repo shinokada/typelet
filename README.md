@@ -76,13 +76,26 @@ typelet --add Print -f banner
 typelet -e
 ```
 
-### Add spaces in front of all lines
+### Spaces
+
+Use the `-s` option to add spaces in front of all lines. The `-s` option takes a number.
 
 ```sh
 typelet -s 30
 ```
 
 This will add 30 spaces in front of all lines.
+
+If you want to add spaces in front of a word/line, use quotes:
+
+```sh
+typelet -c "     Typelet" -f standard
+```
+
+<p align="center">
+<img width="300" src="https://raw.githubusercontent.com/shinokada/typelet/main/images/space.png" /> 
+</p>
+
 
 ### Read the Typelet file
 
