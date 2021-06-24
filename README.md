@@ -2,7 +2,7 @@
 
 ## Overview
 
-Create a figlet word or add words to a Typelet file and print it like a typewriter.
+Create and add large words print it with a typewriter effect.
 
 ![image](https://raw.githubusercontent.com/shinokada/tw/main/images/400-tw.gif)
 
@@ -41,7 +41,7 @@ Default: 2
 
 ### Space
 
-When you create or add a word, use `-s` to add spaces in front of lines.
+Use `-s`  to add spaces in front of all lines.
 Default: 0
 
 ### Empty line
@@ -65,9 +65,9 @@ typelet --create Typewriter -f banner -s 10
 After creating a new Typelet file, you can add a new line using the `-a` option.
 
 ```sh
-typelet -a Print -f banner -s 10
+typelet -a Print -f banner
 # or
-typelet --add Print -f banner -s 10
+typelet --add Print -f banner
 ```
 
 ### Add a empty line
@@ -75,6 +75,14 @@ typelet --add Print -f banner -s 10
 ```sh
 typelet -e
 ```
+
+### Add spaces in front of all lines
+
+```sh
+typelet -s 30
+```
+
+This will add 30 spaces in front of all lines.
 
 ### Read the Typelet file
 

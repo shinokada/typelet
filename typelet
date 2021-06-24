@@ -164,7 +164,17 @@ fn_open() {
     else
         "${EDITOR:-vi}" $tmp_file
     fi
+}
 
+fn_add_spaces() {
+    spaceop=$1
+    # adding spaces in front of all lines
+    if ((spaceop > 0)); then
+        echo "adding spaces..."
+        space_num=$(repeat "$spaceop" " ")
+        # echo "$space_num"
+        sed -i -e "s/^/$space_num/" $tmp_file
+    fi
 }
 
 while (($# > 0)); do
@@ -182,8 +192,10 @@ while (($# > 0)); do
             echo "You need to specify the numbers of spaces."
             exit
         fi
-        spaceop="${2}"
-        shift 2
+        # spaceop="${2}"
+        # shift 2
+        fn_add_spaces "$2"
+        exit
         ;;
     -i | --interval)
         if [[ -z "$2" ]]; then
@@ -259,16 +271,6 @@ while (($# > 0)); do
     esac
 done
 
-fn_replace() {
-    # adding spaces in front of all lines
-    if ((spaceop > 0)); then
-        echo "adding spaces..."
-        space_num=$(repeat "$spaceop" " ")
-        echo "$space_num"
-        sed -i -e "s/^/$space_num/" $tmp_file
-    fi
-}
-
 create() {
     # if [[ -z $word ]]; then
     #     echo "Please specify a word using -w."
@@ -278,7 +280,7 @@ create() {
     touch $tmp_file
     figlet -f "$font" "$word" >$tmp_file
     cat $tmp_file
-    fn_replace
+    # fn_replace
 }
 
 add() {
@@ -291,7 +293,7 @@ add() {
     echo
     echo
     cat $tmp_file
-    fn_replace
+    # fn_replace
 }
 
 print() {
