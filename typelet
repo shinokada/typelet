@@ -157,6 +157,15 @@ fn_empty() {
     echo >>$tmp_file
 }
 
+fn_open() {
+    if [[ $1 = "v" ]]; then
+        code $tmp_file
+    else
+        "${EDITOR:-vi}" $tmp_file
+    fi
+
+}
+
 while (($# > 0)); do
     case $1 in
     -f | --font)
@@ -209,7 +218,7 @@ while (($# > 0)); do
             echo "You need to specify the word."
             exit
         fi
-        word="${2}"
+        word="$2"
         shift 2
         ;;
     -a | --add)
@@ -220,6 +229,10 @@ while (($# > 0)); do
         fi
         word="${2}"
         shift 2
+        ;;
+    -o | --open)
+        fn_open "$2"
+        exit
         ;;
     -p | --print)
         printop="true"
