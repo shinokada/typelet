@@ -92,6 +92,7 @@ check_cmd() {
 
 check_cmd figlet
 check_cmd gh
+check_cmd code
 
 # Repeat given char N times using shell function
 repeat() {

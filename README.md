@@ -1,8 +1,8 @@
-# Typewriter Figlet (typelet)
+# Typelet
 
 ## Overview
 
-Create a figlet word or add words to file and print it like a typewriter.
+Create a figlet word or add words to a Typelet file and print it like a typewriter.
 
 ![image](https://raw.githubusercontent.com/shinokada/tw/main/images/400-tw.gif)
 
@@ -52,7 +52,7 @@ You can add a empty line using the `-e` option.
 
 ### Create a new
 
-Create a new file. The default font is roman, adding 10 spaces in front of all lines.
+Create a new Typelet file. The default font is roman, adding 10 spaces in front of all lines.
 
 ```sh
 typelet -c Typewriter -f banner -s 10
@@ -62,7 +62,7 @@ typelet --create Typewriter -f banner -s 10
 
 ### Add a line
 
-After creating a new file, you can add a new line using the `-a` option.
+After creating a new Typelet file, you can add a new line using the `-a` option.
 
 ```sh
 typelet -a Print -f banner -s 10
@@ -76,9 +76,9 @@ typelet --add Print -f banner -s 10
 typelet -e
 ```
 
-### read the file
+### Read the Typelet file
 
-The `-r` or `--read` option prints what's in the local file.
+The `-r` or `--read` option prints what's in the Typelet file.
 
 ```sh
 typelet -r
@@ -102,6 +102,26 @@ typelet -p --color 1 -i 3
 typelet --print --color 1 -i 3
 ```
 
+### Manually edit Typelet file
+
+Sometimes you want to edit the Typelet file ma
+
+Use `-o` or `--open` to open the Typelet file in a editor.
+
+```sh
+typelet -o
+# or
+typelet --open
+```
+
+This will open the terminal default editor. If it's not set, vim will open.
+
+You can open it with VS Code using `-o v` or `--open v`.
+
+```sh
+typelet -o v
+```
+
 ### Save it to Gist
 
 You can save what you created to a Gist using `-g` or `--gist`.
@@ -114,7 +134,7 @@ typelet --gist
 
 ### Save to the local from a Gist
 
-You can save a Gist to your local file using `-u` or `--url`.
+You can save a Gist to your Typelet file using `-u` or `--url`.
 
 ```sh
 typelet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
@@ -132,7 +152,7 @@ typelet -v
 typelet -h
 ```
 
-See [filet](http://www.figlet.org/examples.html), for font examples.
+See [figlet](http://www.figlet.org/examples.html), for font examples.
 
 ### Save to Gist
 
@@ -172,7 +192,7 @@ Shinichi Okada
 
 MIT License
 
-Copyright (c) 2018 Fábio Maia
+Copyright (c) 2021 Shinichi Okada
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
