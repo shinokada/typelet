@@ -93,7 +93,7 @@ typelet -c "     Typelet" -f standard
 ```
 
 <p align="center">
-<img width="300" src="https://raw.githubusercontent.com/shinokada/typelet/main/images/space.png" /> 
+<img width="500" src="https://raw.githubusercontent.com/shinokada/typelet/main/images/space.png" /> 
 </p>
 
 
