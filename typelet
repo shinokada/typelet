@@ -306,9 +306,10 @@ print() {
         printf '%s' "${word:$i:1}"
         sleep "$speed"
     done
+    tput sgr0
+    echo
     echo
     sleep 1
-    tput sgr0
 }
 
 if [[ -n $createop ]]; then
