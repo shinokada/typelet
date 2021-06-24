@@ -1,10 +1,10 @@
 <p align="center">
 <img width="400" src="https://raw.githubusercontent.com/shinokada/typelet/main/images/typewriter3.gif" />
+</p>
 <p align="center">
 Photo by <a href="https://unsplash.com/@lucaonniboni?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luca Onnibonil</a> on <a href="https://unsplash.com/">Unsplash</a>. GIF image by Author.
 </p>
 <h1  align="center">Typelet</h1>
-</p>
 
 ## Overview
 
