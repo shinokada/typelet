@@ -58,7 +58,7 @@ You can add a empty line using the `-e` option.
 
 ### Create a new
 
-Create a new Typelet file. The default font is roman, adding 10 spaces in front of all lines.
+Create a new Typelet file. The default font is standard, adding 10 spaces in front of all lines.
 
 ```sh
 typelet -c Typewriter -f banner -s 10

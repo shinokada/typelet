@@ -2,7 +2,7 @@
 
 version="0.3.5"
 script_name=$(basename "$0")
-font="roman"
+font="standard"
 colorop=2
 speed="0.0"
 createop=""
