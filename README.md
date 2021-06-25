@@ -58,17 +58,17 @@ You can add a empty line using the `-e` option.
 
 ### Create a new
 
-Create a new Typelet file. The default font is standard, adding 10 spaces in front of all lines.
+Create a new Typelet file. The default font is standard.
 
 ```sh
-typelet -c Typewriter -f banner -s 10
+typelet -c Typewriter
 # or
-typelet --create Typewriter -f banner -s 10
+typelet --create Typewriter
 ```
 
 ### Add a line
 
-After creating a new Typelet file, you can add a new line using the `-a` option.
+After creating a new Typelet file, you can add a new line using the `-a` option. Change a font using the `-f` option with a font name.
 
 ```sh
 typelet -a Print -f banner

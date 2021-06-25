@@ -39,6 +39,13 @@ Add a line
 $script_name -a Print -f banner -s 10
 $script_name --add Print -f banner -s 10
 
+Spaces
+------
+Add spaces in front of a word
+$script_name -c "     Awesome"
+Add spaces to all lines
+$script_name -s 20
+
 
 Add a empty line
 ----------------
