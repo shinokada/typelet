@@ -14,6 +14,7 @@ Create and add large words print it with a typewriter effect.
 
 ## Requirement
 
+- UNIX-like (tested on Ubuntu/MacOS)
 - [Figlet](http://www.figlet.org/)
 - [GitHub CLI gh](https://github.com/cli/cli#installation)
 
