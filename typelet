@@ -84,15 +84,18 @@ EOF
 
 check_cmd() {
     if [[ ! $(command -v "$1") ]]; then
-        echo "It seems like you don't have $1."
-        echo "Please install $1 "
+        if [[ $1 = "code" ]]; then
+            app="VS Code"
+        else
+            app=$1
+        fi
+        echo "It seems like you don't have ${app}."
+        echo "Please install ${app}."
         exit 1
     fi
 }
 
 check_cmd figlet
-check_cmd gh
-check_cmd code
 
 # Repeat given char N times using shell function
 repeat() {
@@ -121,6 +124,7 @@ fn_read() {
 }
 
 save_to_gist() {
+    check_cmd gh
     echo "Saving to gist ..."
     gh gist create -w -p -f "my-tylet" -d "Created by tylet." <$tmp_file || exit
 }
@@ -160,6 +164,7 @@ fn_empty() {
 
 fn_open() {
     if [[ $1 = "v" ]]; then
+        check_cmd code || exit
         code $tmp_file
     else
         "${EDITOR:-vi}" $tmp_file
