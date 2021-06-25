@@ -19,6 +19,21 @@ Create and add large words print it with a typewriter effect.
 
 ## Usage
 
+### Fonts
+
+Install fonts from [Figlet fonts](http://www.figlet.org/fontdb.cgi) or [figlet-fonts](https://github.com/xero/figlet-fonts).
+
+Make sure to use lowercase letters for a file name.
+
+#### apt
+
+If you installed Figlet with the sudo apt install figlet command, font files are /usr/share/figlet/ or /usr/share/figlet/fonts/.
+
+#### Homebrew
+
+If you installed Figlet using brew on ARM64 Mac, install files in the /opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts directory. For x86_64 Mac, install files in the /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts directory.
+
+
 ### Colors
 
 When you print `-p`, use following number with the `--color` option.
@@ -201,7 +216,7 @@ typelet -p --color 1 -i 3
 
 ## Limitations
 
-Ceratin Figlet fonts may create multiple lines for a word.
+A long word splits to multiple lines.
 
 You can check it using `typelet read`.
 
