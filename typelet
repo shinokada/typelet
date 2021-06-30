@@ -184,9 +184,9 @@ fn_create() {
     #     echo "Please specify a word using -w."
     #     exit
     # fi
-    echo "Creating $word with $font font."
+    echo "Creating $1 with $font font."
     touch $tmp_file
-    figlet -f "$font" "$word" >$tmp_file
+    figlet -f "$font" "$1" >$tmp_file
     cat $tmp_file
     # fn_replace
 }
@@ -196,8 +196,8 @@ fn_add() {
     #     echo "Please specify a word using -w."
     #     exit
     # fi
-    echo "Adding $word with $font font."
-    figlet -f "$font" "$word" >>$tmp_file
+    echo "Adding $1 with $font font."
+    figlet -f "$font" "$1" >>$tmp_file
     echo
     echo
     cat $tmp_file
