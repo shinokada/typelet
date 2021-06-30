@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version="0.3.6"
+version="0.3.7"
 script_name=$(basename "$0")
 font="standard"
 colorop=2
@@ -11,6 +11,12 @@ printop=""
 tmp_file="/tmp/typelet-file"
 spaceop=0
 interval=2
+
+abort() {
+    echo "$*" >&2
+    exit 1
+}
+required() { [ $# -gt 1 ] || abort "option '$1' requires an argument"; }
 
 usage() {
     cat <<EOF
@@ -27,62 +33,48 @@ Description:
 $script_name creates, adds, print a large words like a typewriter.
 $script_name can save to/from a Gist and print.
 
+Usage:
 
 Create a file
--------------
-$script_name -c Typewriter -f banner -s 10
-$script_name --create Typewriter -f banner -s 10
+$script_name create Typewriter -f banner -s 10
 
 
 Add a line
-----------
-$script_name -a Print -f banner -s 10
-$script_name --add Print -f banner -s 10
+$script_name add Print -f banner -s 10
 
 Spaces
-------
 Add spaces in front of a word
-$script_name -c "     Awesome"
+$script_name create "     Awesome"
 Add spaces to all lines
-$script_name -s 20
+$script_name space 20
 
 
 Add a empty line
-----------------
-$script_name -e
+$script_name empty
 
 
 Read a file
------------
-$script_name -r
-$script_name --read
+$script_name read
 
 
 Print it
---------
-$script_name -p
-$script_name -p --color 1 -i 3
-$script_name --print --color 1 -i 3
+$script_name print
+$script_name -c 1 -i 3 print
+$script_name --color 1 -i 3 print
 
 
 Save it to a Gist
------------------
-$script_name -g
-$script_name --gist
+$script_name gist
 
 
 Save to local from a Gist
--------------------------
-$script_name -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
-$script_name -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+$script_name url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
 
 
 Print version
--------------
 $script_name -v
 
 Print help
-------------
 $script_name -h
 
 
@@ -189,100 +181,6 @@ fn_add_spaces() {
     fi
 }
 
-while (($# > 0)); do
-    case $1 in
-    -f | --font)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the font name."
-            exit
-        fi
-        font="${2}"
-        shift 2
-        ;;
-    -s | --space)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the numbers of spaces."
-            exit
-        fi
-        # spaceop="${2}"
-        # shift 2
-        fn_add_spaces "$2"
-        exit
-        ;;
-    -i | --interval)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the interval, 1 for 0.01 sec, 2 for 0.001 (default) sec and 3 for 0.0001 sec (fastest)."
-            exit
-        fi
-        interval=$2
-        shift 2
-        ;;
-    --color)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the color. 0: black, 1: red, 2: green (default), 3: yellow, 4: blud, 5: magenta, 6: cyan, 7: white."
-            exit
-        fi
-        colorop=$2
-        shift 2
-        ;;
-    -g | --gist)
-        save_to_gist
-        exit
-        ;;
-    -u | --url)
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the url."
-            exit
-        fi
-        save_to_local "$2"
-        exit
-        ;;
-    -c | --create)
-        createop="true"
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the word."
-            exit
-        fi
-        word="$2"
-        shift 2
-        ;;
-    -a | --add)
-        addop="true"
-        if [[ -z "$2" ]]; then
-            echo "You need to specify the word."
-            exit
-        fi
-        word="${2}"
-        shift 2
-        ;;
-    -o | --open)
-        fn_open "$2"
-        exit
-        ;;
-    -p | --print)
-        printop="true"
-        shift
-        ;;
-    -r | --read)
-        fn_read
-        exit
-        ;;
-    -e | --empty)
-        fn_empty
-        exit
-        ;;
-    -h | --help)
-        usage
-        exit
-        ;;
-    -v | --version)
-        echo "${version}"
-        exit
-        ;;
-        # *) usage ;;
-    esac
-done
-
 create() {
     # if [[ -z $word ]]; then
     #     echo "Please specify a word using -w."
@@ -295,7 +193,7 @@ create() {
     # fn_replace
 }
 
-add() {
+fn_add() {
     # if [[ -z $word ]]; then
     #     echo "Please specify a word using -w."
     #     exit
@@ -308,7 +206,7 @@ add() {
     # fn_replace
 }
 
-print() {
+fn_print() {
     echo
     echo
     find_inteval "$interval"
@@ -329,17 +227,71 @@ if [[ -n $createop ]]; then
     exit
 fi
 
-if [[ -n $addop ]]; then
-    add
-    exit
-fi
-
-if [[ -n $printop ]]; then
-    print
-    exit
-fi
-
-if [[ -n $createop ]]; then
-    create
-    exit
-fi
+while (($# > 0)); do
+    case $1 in
+    -f | --font)
+        required "$@" && shift
+        font="$1"
+        ;;
+    -i | --interval)
+        required "$@" && shift
+        interval=$1
+        ;;
+    -c | --color)
+        required "$@" && shift
+        colorop=$1
+        ;;
+    create)
+        required "$@" && shift
+        fn_create "$1"
+        exit
+        ;;
+    add)
+        required "$@" && shift
+        fn_add "$1"
+        shift 2
+        ;;
+    open)
+        required "$@" && shift
+        fn_open "$1"
+        exit
+        ;;
+    print)
+        fn_print
+        exit
+        ;;
+    read)
+        fn_read
+        exit
+        ;;
+    space)
+        required "$@" && shift
+        fn_add_spaces "$1"
+        exit
+        ;;
+    gist)
+        save_to_gist
+        exit
+        ;;
+    url)
+        required "$@" && shift
+        save_to_local "$2"
+        exit
+        ;;
+    empty)
+        fn_empty
+        exit
+        ;;
+    -h | --help)
+        usage
+        exit
+        ;;
+    -v | --version)
+        echo "${version}"
+        exit
+        ;;
+    -?*) unknown "$@" ;;
+    *) break ;;
+    esac
+    shift
+done

@@ -77,33 +77,29 @@ You can add a empty line using the `-e` option.
 Create a new Typelet file. The default font is standard.
 
 ```sh
-typelet -c Typewriter
-# or
-typelet --create Typewriter
+typelet create Typewriter
 ```
 
 ### Add a line
 
-After creating a new Typelet file, you can add a new line using the `-a` option. Change a font using the `-f` option with a font name.
+After creating a new Typelet file, you can add a new line using the `add` option. Change a font using the `-f` option with a font name.
 
 ```sh
-typelet -a Print -f banner
-# or
-typelet --add Print -f banner
+typelet -f banner add Print 
 ```
 
 ### Add a empty line
 
 ```sh
-typelet -e
+typelet empty
 ```
 
 ### Spaces
 
-Use the `-s` option to add spaces in front of all lines. The `-s` option takes a number.
+Use the `space` option to add spaces in front of all lines. The `space` option takes a number.
 
 ```sh
-typelet -s 30
+typelet space 30
 ```
 
 This will add 30 spaces in front of all lines.
@@ -111,7 +107,7 @@ This will add 30 spaces in front of all lines.
 If you want to add spaces in front of a word/line, use quotes:
 
 ```sh
-typelet -c "     Typelet" -f standard
+typelet -f standard create "     Typelet"
 ```
 
 <p align="center">
@@ -121,12 +117,10 @@ typelet -c "     Typelet" -f standard
 
 ### Read the Typelet file
 
-The `-r` or `--read` option prints what's in the Typelet file.
+The `read` subcommand prints what's in the Typelet file.
 
 ```sh
-typelet -r
-# or
-typelet --read
+typelet read
 ```
 
 ### Print
@@ -134,55 +128,50 @@ typelet --read
 Print using the default settings.
 
 ```sh
-typelet -p
+typelet print
 ```
 
 Print it with the fastest mode 3 and red color.
 
 ```sh
-typelet -p --color 1 -i 3
+typelet --color 1 -i 3 print
 # or
-typelet --print --color 1 -i 3
+typelet -c 1 -i 3 print
 ```
 
 ### Manually edit Typelet file
 
 Sometimes you want to edit the Typelet file ma
 
-Use `-o` or `--open` to open the Typelet file in a editor.
+Use `open` to open the Typelet file in a editor.
 
 ```sh
-typelet -o
-# or
-typelet --open
+typelet open
 ```
 
 This will open the terminal default editor. If it's not set, vim will open.
 
-You can open it with VS Code using `-o v` or `--open v`.
+You can open it with VS Code using `open v`.
 
 ```sh
-typelet -o v
+typelet open v
 ```
 
 ### Save it to Gist
 
-You can save what you created to a Gist using `-g` or `--gist`.
+You can save what you created to a Gist using `gist`.
 
 ```sh
-typelet -g
-# or
-typelet --gist
+typelet gist
 ```
 
 ### Save to the local from a Gist
 
-You can save a Gist to your Typelet file using `-u` or `--url`.
+You can save a Gist to your Typelet file using `url`.
 
 ```sh
-typelet -u https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
-# or
-typelet -url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
+
+typelet url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
 ```
 
 ### Other functions
@@ -196,24 +185,6 @@ typelet -h
 ```
 
 See [figlet](http://www.figlet.org/examples.html), for font examples.
-
-### Save to Gist
-
-```sh
-typelet -g
-# or
-typelet --gist
-```
-
-### Save from Gist to local
-
-```sh
-typelet -u <gist-url>
-# or
-typelet --url <gist-url>
-# then print it
-typelet -p --color 1 -i 3
-```
 
 ## Limitations
 
