@@ -180,10 +180,6 @@ fn_add_spaces() {
 }
 
 fn_create() {
-    # if [[ -z $word ]]; then
-    #     echo "Please specify a word using -w."
-    #     exit
-    # fi
     echo "Creating $1 with $font font."
     touch $tmp_file
     figlet -f "$font" "$1" >$tmp_file
@@ -192,10 +188,6 @@ fn_create() {
 }
 
 fn_add() {
-    # if [[ -z $word ]]; then
-    #     echo "Please specify a word using -w."
-    #     exit
-    # fi
     echo "Adding $1 with $font font."
     figlet -f "$font" "$1" >>$tmp_file
     echo
@@ -273,7 +265,7 @@ while (($# > 0)); do
         ;;
     url)
         required "$@" && shift
-        save_to_local "$2"
+        save_to_local "$1"
         exit
         ;;
     empty)
