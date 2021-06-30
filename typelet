@@ -6,8 +6,6 @@ font="standard"
 colorop=2
 speed="0.0"
 createop=""
-addop=""
-printop=""
 tmp_file="/tmp/typelet-file"
 spaceop=0
 interval=2
@@ -181,7 +179,7 @@ fn_add_spaces() {
     fi
 }
 
-create() {
+fn_create() {
     # if [[ -z $word ]]; then
     #     echo "Please specify a word using -w."
     #     exit
