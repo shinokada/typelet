@@ -24,51 +24,51 @@ Create and add large words print it with a typewriter effect.
 
 Install fonts from [Figlet fonts](http://www.figlet.org/fontdb.cgi) or [figlet-fonts](https://github.com/xero/figlet-fonts).
 
-Make sure to use lowercase letters for a file name.
+Please use lowercase letters for a file name.
 
 #### apt
 
-If you installed Figlet with the sudo apt install figlet command, font files are /usr/share/figlet/ or /usr/share/figlet/fonts/.
+If you installed Figlet with the `sudo apt install figlet` command, font files are /usr/share/figlet/ or /usr/share/figlet/fonts/.
 
 #### Homebrew
 
-If you installed Figlet using brew on ARM64 Mac, install files in the /opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts directory. For x86_64 Mac, install files in the /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts directory.
-
+If you installed Figlet using brew on ARM64 Mac, installed files are in the /opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts directory. For x86_64 Mac, installed files are in the /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts directory.
 
 ### Colors
 
 When you print `-p`, use following number with the `--color` option.
+Default: green
 
-| Number | Color           |
-| ------ | --------------- |
-| 0      | black           |
-| 1      | red             |
-| 2      | green (default) |
-| 3      | yellow          |
-| 4      | blue            |
-| 5      | magenta         |
-| 6      | cyan            |
-| 7      | white           |
+| Colors  |
+| ------- |
+| black   |
+| red     |
+| green   |
+| yellow  |
+| blue    |
+| magenta |
+| cyan    |
+| white   |
 
 ### Interval
 
 When you print `-p`, interval determines the interval time. Use with `-i` or `--interval`.
-Default: 2
+Default: medium
 
-| Number | time              | Speed                  |
-| ------ | ----------------- | ---------------------- |
-| 1      | 0.01-0.09 sec     | Slowest                |
-| 2      | 0.001-0.009 sec   | Midium speed (Default) |
-| 3      | 0.0001-0.0009 sec | Fastest                |
+| Speed  | Time              |
+| ------ | ----------------- |
+| slow   | 0.01-0.09 sec     |
+| medium | 0.001-0.009 sec   |
+| fast   | 0.0001-0.0009 sec |
 
 ### Space
 
-Use `-s`  to add spaces in front of all lines.
+Use the `space` command to add spaces in front of all lines.
 Default: 0
 
 ### Empty line
 
-You can add a empty line using the `-e` option.
+You can add a empty line using the `empty` command.
 
 ## Examples
 
@@ -77,7 +77,7 @@ You can add a empty line using the `-e` option.
 Create a new Typelet file. The default font is standard.
 
 ```sh
-typelet create Typewriter
+typelet create Bash
 ```
 
 ### Add a line
@@ -85,7 +85,7 @@ typelet create Typewriter
 After creating a new Typelet file, you can add a new line using the `add` option. Change a font using the `-f` option with a font name.
 
 ```sh
-typelet -f banner add Print 
+typelet add Scripts -f banner 
 ```
 
 ### Add a empty line
@@ -107,7 +107,7 @@ This will add 30 spaces in front of all lines.
 If you want to add spaces in front of a word/line, use quotes:
 
 ```sh
-typelet -f standard create "     Typelet"
+typelet create "     Typelet" -f standard 
 ```
 
 <p align="center">
@@ -134,9 +134,9 @@ typelet print
 Print it with the fastest mode 3 and red color.
 
 ```sh
-typelet --color 1 -i 3 print
+typelet print --color cyan -i fast
 # or
-typelet -c 1 -i 3 print
+typelet print -c red -i slow
 ```
 
 ### Manually edit Typelet file
@@ -151,10 +151,10 @@ typelet open
 
 This will open the terminal default editor. If it's not set, vim will open.
 
-You can open it with VS Code using `open v`.
+Use one from vi, emacs or vscode.
 
 ```sh
-typelet open v
+typelet open vi
 ```
 
 ### Save it to Gist
@@ -192,11 +192,9 @@ A long word splits to multiple lines.
 
 You can check it using `typelet read`.
 
-
 ## Reference
 
 - [Figlet font examples](http://www.figlet.org/examples.html)
-
 
 ## Author
 
