@@ -20,6 +20,24 @@ Create and add large words print it with a typewriter effect.
 
 ## Usage
 
+Usage: typelet [command] [options...] [arguments...]
+
+Options:
+  -h, --help
+      --version
+
+Commands:
+Use command -h for a command help.
+  create    Creates a word/line.
+  add       Adds a word/line.
+  space     Adds spaces.
+  read      Reads the Typelet file.
+  empty     Add a empty line.
+  print     Prints the Typelet file.
+  open      Opens the Typelet file with an editor.
+  gist      Creates a Gist.
+  url       Saves a Gist to your Typelet file using a Gist URL.
+
 ### Fonts
 
 Install fonts from [Figlet fonts](http://www.figlet.org/fontdb.cgi) or [figlet-fonts](https://github.com/xero/figlet-fonts).
@@ -28,15 +46,15 @@ Please use lowercase letters for a file name.
 
 #### apt
 
-If you installed Figlet with the `sudo apt install figlet` command, font files are /usr/share/figlet/ or /usr/share/figlet/fonts/.
+If you installed Figlet with the `sudo apt install figlet` command, font files are in `/usr/share/figlet/` or `/usr/share/figlet/fonts/`.
 
 #### Homebrew
 
-If you installed Figlet using brew on ARM64 Mac, installed files are in the /opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts directory. For x86_64 Mac, installed files are in the /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts directory.
+If you installed Figlet using brew on ARM64 Mac, installed files are in the `/opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts` directory. For x86_64 Mac, installed files are in the `/usr/local/Cellar/figlet/2.2.5/share/figlet/fonts` directory.
 
 ### Colors
 
-When you print `-p`, use following number with the `--color` option.
+When you print, use following number with the `--color` or `-c` option.
 Default: green
 
 | Colors  |
@@ -52,7 +70,7 @@ Default: green
 
 ### Interval
 
-When you print `-p`, interval determines the interval time. Use with `-i` or `--interval`.
+When you print, interval determines the interval time. Use with `-i` or `--interval`.
 Default: medium
 
 | Speed  | Time              |
