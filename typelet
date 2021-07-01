@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
 set -eu
+
+# shellcheck disable=SC2034
+VERSION="0.4.1"
+FONT="standard"
+COLOROP=2
+SPEED="0.0"
+TMP_FILE="/tmp/typelet-file"
+SPACEOP=0
+SCRIPT_NAME=$(basename "$0")
+
 myrealpath() {
     local LINK REALPATH
     local OURPWD=$PWD
@@ -18,13 +28,13 @@ myrealpath() {
 # $0 may have ./ in ./awesome
 # then use pwd
 
-if [[ -z $(which typelet) || $0 = "./typelet" ]]; then
+if [[ -z $(which "${SCRIPT_NAME}") || $0 = "./${SCRIPT_NAME}" ]]; then
     # echo "in 1"
     script_path=$(myrealpath "$0")
     # script_path=${script_path%/*}
 else
     # echo "in 2"
-    script_path=$(myrealpath "$(which awesome)")
+    script_path=$(myrealpath "$(which "${SCRIPT_NAME}")")
 fi
 
 script_dir="${script_path%/*}"
@@ -32,14 +42,6 @@ script_dir="${script_path%/*}"
 source "${script_dir}/getoptions"
 
 # . ./getoptions
-
-# shellcheck disable=SC2034
-VERSION="0.4.1"
-FONT="standard"
-COLOROP=2
-SPEED="0.0"
-TMP_FILE="/tmp/typelet-file"
-SPACEOP=0
 
 abort() {
     echo "$*" >&2
