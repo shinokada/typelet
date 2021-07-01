@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
-version="0.3.7"
-script_name=$(basename "$0")
-font="standard"
-colorop=2
-speed="0.0"
-createop=""
-tmp_file="/tmp/typelet-file"
-spaceop=0
-interval=2
+set -eu
+
+# shellcheck disable=SC1091
+. ./getoptions
+
+# shellcheck disable=SC2034
+VERSION="0.4.0"
+FONT="standard"
+COLOROP=2
+SPEED="0.0"
+TMP_FILE="/tmp/typelet-file"
+SPACEOP=0
 
 abort() {
     echo "$*" >&2
@@ -16,68 +19,7 @@ abort() {
 }
 required() { [ $# -gt 1 ] || abort "option '$1' requires an argument"; }
 
-usage() {
-    cat <<EOF
-
- _____                 _      _
-|_   _|   _ _ __   ___| | ___| |_
-  | || | | | '_ \ / _ \ |/ _ \ __|
-  | || |_| | |_) |  __/ |  __/ |_
-  |_| \__, | .__/ \___|_|\___|\__|
-      |___/|_|
-
-      
-Description:
-$script_name creates, adds, print a large words like a typewriter.
-$script_name can save to/from a Gist and print.
-
-Usage:
-
-Create a file
-$script_name create Typewriter -f banner -s 10
-
-
-Add a line
-$script_name add Print -f banner -s 10
-
-Spaces
-Add spaces in front of a word
-$script_name create "     Awesome"
-Add spaces to all lines
-$script_name space 20
-
-
-Add a empty line
-$script_name empty
-
-
-Read a file
-$script_name read
-
-
-Print it
-$script_name print
-$script_name -c 1 -i 3 print
-$script_name --color 1 -i 3 print
-
-
-Save it to a Gist
-$script_name gist
-
-
-Save to local from a Gist
-$script_name url https://gist.github.com/shinokada/f7996e53914bc55854d2a800ec20ef82
-
-
-Print version
-$script_name -v
-
-Print help
-$script_name -h
-
-
-EOF
-}
+number() { case $OPTARG in *[!0-9]*) return 1 ;; esac; }
 
 check_cmd() {
     if [[ ! $(command -v "$1") ]]; then
@@ -106,9 +48,9 @@ repeat() {
 
 find_inteval() {
     case $1 in
-    1) speed=0.0$(((RANDOM % 9) + 1)) ;;
-    2) speed=0.00$(((RANDOM % 9) + 1)) ;;
-    3) speed=0.000$(((RANDOM % 9) + 1)) ;;
+    SLOW) SPEED=0.0$(((RANDOM % 9) + 1)) ;;
+    MEDIUM) SPEED=0.00$(((RANDOM % 9) + 1)) ;;
+    FAST) SPEED=0.000$(((RANDOM % 9) + 1)) ;;
     *)
         usage
         exit
@@ -116,14 +58,21 @@ find_inteval() {
     esac
 }
 
-fn_read() {
-    cat "$tmp_file"
-}
-
-save_to_gist() {
-    check_cmd gh
-    echo "Saving to gist ..."
-    gh gist create -w -p -f "my-tylet" -d "Created by tylet." <$tmp_file || exit
+find_color_num() {
+    case $1 in
+    BLACK) COLOROP=0 ;;
+    RED) COLOROP=1 ;;
+    GREEN) COLOROP=2 ;;
+    YELLOW) COLOROP=3 ;;
+    BLUE) COLOROP=4 ;;
+    MAGENTA) COLOROP=5 ;;
+    CYAN) COLOROP=6 ;;
+    WHITE) COLOROP=7 ;;
+    *)
+        usage
+        exit
+        ;;
+    esac
 }
 
 create_raw() {
@@ -140,13 +89,13 @@ create_raw() {
     fi
 }
 
-save_to_local() {
+fn_save_to_local() {
     echo "Saving from gist to a local."
     echo "URL: $1"
     if [ "$1" ]; then
         url=$1
-        create_raw "$url" >$tmp_file
-        echo "Save to the local file."
+        create_raw "$url" >$TMP_FILE
+        echo "Saved to the local file."
         echo "Now you can print it."
         exit
     else
@@ -155,56 +104,56 @@ save_to_local() {
     fi
 }
 
-fn_empty() {
-    echo >>$tmp_file
-}
-
-fn_open() {
-    if [[ $1 = "v" ]]; then
-        check_cmd code || exit
-        code $tmp_file
-    else
-        "${EDITOR:-vi}" $tmp_file
-    fi
-}
-
-fn_add_spaces() {
-    spaceop=$1
-    # adding spaces in front of all lines
-    if ((spaceop > 0)); then
-        echo "adding spaces..."
-        space_num=$(repeat "$spaceop" " ")
-        # echo "$space_num"
-        sed -i -e "s/^/$space_num/" $tmp_file
-    fi
-}
-
 fn_create() {
-    echo "Creating $1 with $font font."
-    touch $tmp_file
-    figlet -f "$font" "$1" >$tmp_file
-    cat $tmp_file
-    # fn_replace
+    echo "Creating $1 with $FONT font."
+    touch $TMP_FILE
+    figlet -f "$FONT" "$1" >$TMP_FILE
+    cat $TMP_FILE
 }
 
 fn_add() {
-    echo "Adding $1 with $font font."
-    figlet -f "$font" "$1" >>$tmp_file
+    echo "Adding $1 with $FONT font."
+    figlet -f "$FONT" "$1" >>$TMP_FILE
     echo
     echo
-    cat $tmp_file
+    cat $TMP_FILE
     # fn_replace
+}
+
+fn_add_spaces() {
+
+    case $1 in *[!0-9]*) return 1 ;; esac
+    SPACEOP=$1
+    # adding spaces in front of all lines
+    if ((SPACEOP > 0)); then
+        echo "adding spaces..."
+        SPACE_NUM=$(repeat "$SPACEOP" " ")
+
+        sed -i -e "s/^/$SPACE_NUM/" $TMP_FILE
+        cat $TMP_FILE
+    fi
+}
+
+fn_empty() {
+    echo >>$TMP_FILE
+}
+
+fn_read() {
+    cat "$TMP_FILE"
 }
 
 fn_print() {
     echo
     echo
-    find_inteval "$interval"
-    word=$(cat $tmp_file)
-    tput setaf "$colorop"
+    COLOR=$(echo "$COLOR" | tr '[:lower:]' '[:upper:]')
+    INTERVAL=$(echo "$INTERVAL" | tr '[:lower:]' '[:upper:]')
+    find_inteval "$INTERVAL"
+    find_color_num "$COLOR"
+    word=$(cat $TMP_FILE)
+    tput setaf "$COLOROP"
     for ((i = 0; i <= ${#word}; i++)); do
         printf '%s' "${word:$i:1}"
-        sleep "$speed"
+        sleep "$SPEED"
     done
     tput sgr0
     echo
@@ -212,76 +161,251 @@ fn_print() {
     sleep 1
 }
 
-if [[ -n $createop ]]; then
-    create
-    exit
-fi
-
-while (($# > 0)); do
-    case $1 in
-    -f | --font)
-        required "$@" && shift
-        font="$1"
-        ;;
-    -i | --interval)
-        required "$@" && shift
-        interval=$1
-        ;;
-    -c | --color)
-        required "$@" && shift
-        colorop=$1
-        ;;
-    create)
-        required "$@" && shift
-        fn_create "$1"
+fn_open() {
+    if [ "$EDITOR" = "vscode" ]; then
+        EDITOR="code"
+    fi
+    check_cmd "$EDITOR" || {
+        echo "You don't have $EDITOR."
         exit
+    }
+    "${EDITOR:-vi}" $TMP_FILE
+}
+
+fn_save_to_gist() {
+    check_cmd gh
+    echo "Saving to gist ..."
+    gh gist create -w -p -f "my-tylet" -d "Created by tylet." <$TMP_FILE || exit
+}
+
+# shellcheck disable=SC1083
+parser_definition() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} [command] [options...] [arguments...]"
+    msg -- '' 'Options:'
+    disp :usage -h --help
+    disp VERSION --version
+
+    msg -- '' 'Commands: '
+    msg -- 'Use command -h for a command help.'
+    cmd create -- "Creates a word/line."
+    cmd add -- "Adds a word/line."
+    cmd space -- "Adds spaces."
+    cmd read -- "Reads the Typelet file."
+    cmd empty -- "Add a empty line."
+    cmd print -- "Prints the Typelet file."
+    cmd open -- "Opens the Typelet file with an editor."
+    cmd gist -- "Creates a Gist."
+    cmd url -- "Saves a Gist to your Typelet file using a Gist URL."
+}
+
+# shellcheck disable=SC1083
+parser_definition_create() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} create [options] [arguments]"
+    msg -- 'Options:'
+    param FONT -f --font init:="standard" -- "accepts --font fontname / --font=fontname"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_add() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} add [options] [arguments]"
+    msg -- 'Options:'
+    param FONT -f --font init:="standard" -- "accepts --font fontname / --font=fontname"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_space() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} space [number]"
+    msg -- 'Adds spaces in front of all lines.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_read() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} read"
+    msg -- 'Reads and prints a Typelet file.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_empty() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} empty"
+    msg -- 'Adds a empty line.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_print() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} print [options...] [arguments...]"
+    msg -- 'Prints the Typelet file.'
+    param COLOR -c --color init:="GREEN" pattern:"black | red | green | yellow | blue | magenta | cyan | white" -- "accepts --color value / --color=value"
+    param INTERVAL -i --inter init:="medium" pattern:"slow | medium | fast " -- "accepts --inter value / --inter=value"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_open() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} open [option] [argument]"
+    msg -- 'Open the Typelet file with an editor.'
+    param EDITOR -e --editor init:="vi" pattern:"vi | emacs | vscode " -- "accepts --editor value / --editor=value"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_gist() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} gist"
+    msg -- 'Create a public Gist with the Typelet file.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_url() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} url <Gist-URL>"
+    msg -- 'Save a Gist to the local Typelet file.'
+    disp :usage -h --help
+}
+
+eval "$(getoptions parser_definition parse "$0") exit 1"
+parse "$@"
+eval "set -- $REST"
+
+if [ $# -gt 0 ]; then
+    cmd=$1
+    shift
+    case $cmd in
+    create)
+        eval "$(getoptions parser_definition_create parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_create "$@"
         ;;
     add)
-        required "$@" && shift
-        fn_add "$1"
-        shift 2
-        ;;
-    open)
-        required "$@" && shift
-        fn_open "$1"
-        exit
-        ;;
-    print)
-        fn_print
-        exit
-        ;;
-    read)
-        fn_read
-        exit
+        eval "$(getoptions parser_definition_add parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_add "$@"
         ;;
     space)
-        required "$@" && shift
-        fn_add_spaces "$1"
-        exit
+        eval "$(getoptions parser_definition_space parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_add_spaces "$@"
         ;;
-    gist)
-        save_to_gist
-        exit
-        ;;
-    url)
-        required "$@" && shift
-        save_to_local "$1"
-        exit
+    read)
+        eval "$(getoptions parser_definition_read parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_read
         ;;
     empty)
+        eval "$(getoptions parser_definition_empty parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
         fn_empty
-        exit
         ;;
-    -h | --help)
-        usage
-        exit
+    print)
+        eval "$(getoptions parser_definition_print parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_print
         ;;
-    -v | --version)
-        echo "${version}"
-        exit
+    open)
+        eval "$(getoptions parser_definition_open parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_open
         ;;
-    -?*) unknown "$@" ;;
-    *) break ;;
+    gist)
+        eval "$(getoptions parser_definition_gist parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_save_to_gist
+        ;;
+    url)
+        eval "$(getoptions parser_definition_url parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_save_to_local "$@"
+        ;;
+    --) ;; # no subcommand, arguments only
     esac
-    shift
-done
+fi
+# while (($# > 0)); do
+#     case $1 in
+#     -f | --font)
+#         required "$@" && shift
+#         font="$1"
+#         ;;
+#     -i | --interval)
+#         required "$@" && shift
+#         interval=$1
+#         ;;
+#     -c | --color)
+#         required "$@" && shift
+#         colorop=$1
+#         ;;
+#     create)
+#         required "$@" && shift
+#         fn_create "$1"
+#         exit
+#         ;;
+#     add)
+#         required "$@" && shift
+#         fn_add "$1"
+#         shift 2
+#         ;;
+#     open)
+#         required "$@" && shift
+#         fn_open "$1"
+#         exit
+#         ;;
+#     print)
+#         fn_print
+#         exit
+#         ;;
+#     read)
+#         fn_read
+#         exit
+#         ;;
+#     space)
+#         required "$@" && shift
+#         fn_add_spaces "$1"
+#         exit
+#         ;;
+#     gist)
+#         save_to_gist
+#         exit
+#         ;;
+#     url)
+#         required "$@" && shift
+#         save_to_local "$1"
+#         exit
+#         ;;
+#     empty)
+#         fn_empty
+#         exit
+#         ;;
+#     -h | --help)
+#         usage
+#         exit
+#         ;;
+#     -v | --version)
+#         echo "${version}"
+#         exit
+#         ;;
+#     -?*) unknown "$@" ;;
+#     *) break ;;
+#     esac
+#     shift
+# done
