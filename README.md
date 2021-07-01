@@ -20,6 +20,7 @@ Create and add large words print it with a typewriter effect.
 
 ## Usage
 
+```sh
 Usage: typelet [command] [options...] [arguments...]
 
 Options:
@@ -37,6 +38,7 @@ Use command -h for a command help.
   open      Opens the Typelet file with an editor.
   gist      Creates a Gist.
   url       Saves a Gist to your Typelet file using a Gist URL.
+```
 
 ### Fonts
 
