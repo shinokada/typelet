@@ -41,14 +41,6 @@ script_dir="${script_path%/*}"
 # shellcheck disable=SC1091
 source "${script_dir}/getoptions"
 
-# . ./getoptions
-
-abort() {
-    echo "$*" >&2
-    exit 1
-}
-required() { [ $# -gt 1 ] || abort "option '$1' requires an argument"; }
-
 number() { case $OPTARG in *[!0-9]*) return 1 ;; esac; }
 
 check_cmd() {
