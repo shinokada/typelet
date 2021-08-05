@@ -3,7 +3,7 @@
 set -eu
 
 # shellcheck disable=SC2034
-VERSION="0.4.1"
+VERSION="0.4.2"
 FONT="standard"
 COLOROP=2
 SPEED="0.0"
@@ -219,6 +219,54 @@ parser_definition() {
     cmd open -- "Opens the Typelet file with an editor."
     cmd gist -- "Creates a Gist."
     cmd url -- "Saves a Gist to your Typelet file using a Gist URL."
+
+    msg -- '' 'Examples:
+
+Create a new with the default font: 
+    typelet create Go
+
+Create a new with the banner font: 
+    typelet create JavaScript -f banner 
+
+Add a line: 
+    typelet add New Line
+
+Use -f font-name to change the font: 
+    typelet add Bash -f banner
+
+Add a empty line: 
+    typelet empty
+
+Add spaces in front of all lines: 
+    typelet space 30
+
+Add spaces in front of a line : 
+    typelet create "      PHP"
+
+Display what you have so far:
+    typelet read
+
+Print with the default setting:
+    typelet print
+
+Print with different speed and color:
+    typelet print --color cyan -i fast
+
+Manually edit Typelet file:
+    typelet open
+
+Save it to Gist:
+    typelet gist
+
+Save to the local from a Gist:
+    typelet url your-gist-url
+
+Display the version:
+    typelet -v
+
+Display help:
+    typelet -h
+'
 }
 
 # shellcheck disable=SC1083
