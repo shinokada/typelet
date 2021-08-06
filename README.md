@@ -74,7 +74,7 @@ If you installed Figlet with the `sudo apt install figlet` command, font files a
 
 #### Homebrew
 
-If you installed Figlet using brew on ARM64 Mac, installed files are in the `/opt/homebrew/Cellar/figlet/2.2.5/share/figlet/fonts` directory. For x86_64 Mac, installed files are in the `/usr/local/Cellar/figlet/2.2.5/share/figlet/fonts` directory.
+If you installed Figlet using brew on ARM64 Mac, installed files are in the `/opt/homebrew/Cellar/figlet/<version>/share/figlet/fonts` directory. For x86_64 Mac, installed files are in the `/usr/local/Cellar/figlet/<version>/share/figlet/fonts` directory.
 
 ### Colors
 
