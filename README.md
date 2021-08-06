@@ -20,7 +20,25 @@ Create and add large words print it with a typewriter effect.
 
 ## Installation
 
+### [Awesome package manager](https://github.com/shinokada/awesome)
 
+```sh
+awesome install shinokada/typelet
+```
+
+### Homebrew/Linuxbrew
+
+```sh
+brew tap shinokada/typelet
+brew install typelet
+```
+
+### Debian/Ubuntu
+
+```sh
+curl https://api.github.com/repos/shinokada/typelet/releases/latest | grep "browser_download_url" | grep -Eo 'https://[^\"]*' | xargs wget
+sudo apt install ./<tera_XXXXXXXX.deb>
+```
 
 ## Usage
 
