@@ -45,7 +45,7 @@ self=$(readlinkf "$0")
 script_dir=${self%/*}
 
 # shellcheck disable=SC1091
-. "${script_dir}/getoptions"
+. "${script_dir}/typelet_getoptions.sh"
 
 number() { case $OPTARG in *[!0-9]*) return 1 ;; esac; }
 
