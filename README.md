@@ -40,6 +40,28 @@ curl https://api.github.com/repos/shinokada/typelet/releases/latest | grep "brow
 sudo apt install ./<tera_XXXXXXXX.deb>
 ```
 
+## Uninstallation
+
+### Awesome package manager
+
+```sh
+awesome rm typelet
+```
+
+### Homebrew/Linuxbrew uninstallation
+
+```sh
+brew uninstall typelet
+```
+
+### Debian/Ubuntu uninstallation
+
+This method works for Debian/Ubuntu, Awesome package manager, and Homebrew/Linuxbrew.
+
+```sh
+curl -s https://raw.githubusercontent.com/shinokada/typelet/main/uninstall.sh > tmp1 && bash tmp1 && rm tmp1
+```
+
 ## Usage
 
 ```sh
