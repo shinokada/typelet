@@ -18,6 +18,10 @@ Create and add large words print it with a typewriter effect.
 - [Figlet](http://www.figlet.org/)
 - [GitHub CLI gh](https://github.com/cli/cli#installation)
 
+## Installation
+
+
+
 ## Usage
 
 ```sh
@@ -89,6 +93,22 @@ Default: 0
 ### Empty line
 
 You can add a empty line using the `empty` command.
+
+## Command help
+
+Each command has a help menu.
+
+```sh
+typelet create -h
+typelet add -h
+typelet space -h
+typelet read -h
+typelet empty -h
+typelet print -h
+typelet open -h
+typelet gist -h
+typelet url -h
+```
 
 ## Examples
 
