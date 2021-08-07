@@ -37,8 +37,10 @@ brew install typelet
 
 ```sh
 curl https://api.github.com/repos/shinokada/typelet/releases/latest | grep "browser_download_url" | grep -Eo 'https://[^\"]*' | xargs wget
-sudo apt install ./<tera_XXXXXXXX.deb>
+sudo apt install ./tera_XXXXXXXX.deb
 ```
+
+Change `XXXXXXX` to the version downloaded.
 
 ## Uninstallation
 
