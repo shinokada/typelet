@@ -3,7 +3,7 @@
 set -eu
 
 # shellcheck disable=SC2034
-VERSION="0.4.4"
+VERSION="0.4.5"
 FONT="standard"
 COLOROP=2
 SPEED="0.0"
@@ -45,7 +45,7 @@ self=$(readlinkf "$0")
 script_dir=${self%/*}
 
 # shellcheck disable=SC1091
-. "${script_dir}/typelet_getoptions.sh"
+. "${script_dir}/lib/getoptions.sh"
 
 number() { case $OPTARG in *[!0-9]*) return 1 ;; esac; }
 
