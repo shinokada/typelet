@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Typlet</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description"
+    content="Create and add large words print it with a typewriter effect." />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" />
+  <style>
+    .markdown-section {
+      max-width: 700px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      subMaxLevel: 1,
+      maxLevel: 3,
+      auto2top: true,
+      repo: 'shinokada/typelet',
+      routerMode: 'history',
+      crossOriginLinks: [
+        'https://twitter.com/shinokada',
+        'https://ko-fi.com/Z8Z2CHALG',
+        'https://unsplash.com/@lucaonniboni?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+        'https://unsplash.com/',
+        'http://www.figlet.org/',
+        'http://www.figlet.org/fontdb.cgi',
+        'http://www.figlet.org/examples.html',
+        'https://github.com/xero/figlet-fonts',
+        'https://github.com/cli/cli#installation',
+        'https://opensource.org/licenses/MIT'
+      ],
+      search: 'auto',
+      search: [
+        '/docs/README.md', // => /README.md
+      ],
+      // complete configuration parameters
+      search: {
+        maxAge: 180000,
+        paths: 'auto',
+        placeholder: 'Type to search',
+        noData: 'No Results!',
+        // Headline depth, 1 - 6
+        depth: 3,
+        hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+      },
+    };
+    };
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" defer></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js" defer></script>
+</body>
+
+</html>
