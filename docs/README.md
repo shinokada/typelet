@@ -1,12 +1,12 @@
-<p align="center">
-<a href='https://ko-fi.com/Z8Z2CHALG' target='_blank'><img height='42' style='border:0px;height:42px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' alt='Buy Me a Coffee at ko-fi.com' /></a>
-</p>
 
 <p align="center">
 <img width="400" src="https://raw.githubusercontent.com/shinokada/typelet/main/images/typewriter3.gif" />
 </p>
 <p align="center">
 Photo by <a href="https://unsplash.com/@lucaonniboni?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luca Onnibonil</a> on <a href="https://unsplash.com/">Unsplash</a>. GIF image by Author.
+</p>
+<p align="center">
+<a href='https://ko-fi.com/Z8Z2CHALG' target='_blank'><img height='42' style='border:0px;height:42px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </p>
 <h1  align="center">Typelet</h1>
 
